@@ -3,11 +3,10 @@ version '0.0.1-SNAPSHOT'
 
 apply plugin: 'application'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
 
 project.ext {
     configPath = "$rootProject.projectDir/config/"
-    dropwizardVersion = '0.9.2'
 }
 
 repositories {
@@ -15,8 +14,10 @@ repositories {
 }
 
 dependencies {
-    compile group: 'io.dropwizard', name: 'dropwizard-core', version: dropwizardVersion
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile "io.dropwizard:dropwizard-core:0.9.2"
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
 }
 
 mainClassName = "com.revinate.webby.WebbyDropwizardApplication"
