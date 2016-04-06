@@ -1,6 +1,7 @@
 package com.revinate.webby.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.common.annotations.VisibleForTesting;
 import com.revinate.webby.api.Location;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Optional;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
@@ -31,12 +33,11 @@ public class LocationResource {
      *
      * @return String  client's ip
      */
-    private String getIp(HttpServletRequest request) {
-        final String xForwardedFor = request.getHeader("X-Forwarded-For");
-        if (xForwardedFor == null) {
-            return request.getRemoteAddr();
-        }
-        return xForwardedFor.split("\\s*,\\s*")[0];
+    @VisibleForTesting
+    String getIp(HttpServletRequest request) {
+        return Optional.ofNullable(request.getHeader("X-Forwarded-For"))
+                .map(xff -> xff.split("\\s*,\\s*")[0])
+                .orElse(request.getRemoteAddr());
     }
 
     /**
