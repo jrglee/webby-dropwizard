@@ -9,10 +9,6 @@ public class Location {
 
     private String hostname;
 
-    public Location() {
-        // Jackson deserialization
-    }
-
     public Location(String ip, String hostname) {
         this.ip = ip;
         this.hostname = hostname;
