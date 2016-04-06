@@ -1,0 +1,26 @@
+group 'com.revinate'
+version '0.0.1-SNAPSHOT'
+
+apply plugin: 'application'
+
+sourceCompatibility = 1.5
+
+project.ext {
+    configPath = "$rootProject.projectDir/config/"
+    dropwizardVersion = '0.9.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'io.dropwizard', name: 'dropwizard-core', version: dropwizardVersion
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+mainClassName = "com.revinate.webby.WebbyDropwizardApplication"
+
+run {
+    args 'server', configPath + 'app_config.yml'
+}
